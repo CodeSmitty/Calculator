@@ -1,0 +1,11 @@
+.calc-wrapper{
+    width:50%;
+    margin:50px auto;
+}
+
+
+@media screen and (max-width:750px){
+    .calc-wrapper{
+        width:80%;
+    }
+}
