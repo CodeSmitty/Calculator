@@ -58,22 +58,41 @@ const useCalculatorMath = () => {
 
   const addDecimal = val =>{
       const inputValue = String(value.input)
-      if (val === "." && /\d{1,}\.\d/.test(inputValue) ) {
+      if(!isNaN(inputValue[inputValue.length -1]) ){
+          console.log(inputValue.length -1)
+          if (val === "." && /\d{1,}\.\d$/.test(inputValue)) {
         console.log("regex test pass");
         setValue({ input: value.input + "" });
       }else{
           setValue({input:value.input + val})
       }
+      }
+      
   }
 
   const addition = (val) => {
       const reg = new RegExp(/[0-9][+\-/*]+[0-9]/g);
-      if(!String(value.input).match(reg)){
-          setValue({ input: value.input + val });
-      }else{
-          const answer = evaluate(value.input);
-          setValue({input:answer +val})
+      const moreThanOneOperator = /\d{1,}[+*/]{1,}/
+      const inputValue = value.input;
+      console.log(moreThanOneOperator.test(value.input))
+      if (
+       
+        moreThanOneOperator.test(inputValue)
+      ){
+          console.log('there are multiple operators')
       }
+
+      if(/\d{1,}\+$/.test(inputValue)){
+        setValue({input:value.input + ""})
+      }else{
+             if (!String(value.input).match(reg)) {
+          setValue({ input: value.input + val, operator:val });
+        } else {
+          const answer = evaluate(value.input);
+          setValue({ input: answer + val,operator:val });
+        }
+      }
+       
     
   };
   const substract = (val) => {
@@ -102,12 +121,20 @@ const useCalculatorMath = () => {
   };
 
   const multiply = (val) => {
-    setValue({
-      ...value,
-      input: (value.input += val),
-      prevNumber: value.input,
-      operator: val,
-    });
+      const inputValue = value.input;
+      const reg = /\d{1,}[+*/]{1,}/
+      if(reg.test(inputValue)){
+          console.log(value.operator)
+          const newValue = inputValue.slice(0,inputValue.length-1)
+          console.log(newValue)
+        setValue({input:newValue +val,operator:val})
+      }
+    // setValue({
+    //   ...value,
+    //   input: (value.input += val),
+    //   prevNumber: value.input,
+    //   operator: val,
+    // });
   };
 
   const divide = (val) =>
@@ -141,40 +168,6 @@ const useCalculatorMath = () => {
       input: answer,
     });
 
-    // if (value.operator === "+") {
-
-    // //   let answer = evaluate(value.input)
-    // //     console.log(answer)
-    //   setValue({
-    //     result:answer,
-    //     input:answer,
-    //     prevNumber: value.input,
-    //     prevOperator: value.operator,
-    //   });
-    //   getPreviousEquation(value.prevOperator, value.input);
-    // } else if (value.operator === "-") {
-    //   setValue({
-    //     ...value,
-    //     input: parseFloat(value.prevNumber) - parseFloat(value.input),
-    //     prevNumber: value.input,
-    //     prevOperator: value.operator,
-    //   });
-    //   getPreviousEquation(value.prevOperator, value.input);
-    // } else if (value.operator === "x") {
-    //   setValue({
-    //     ...value,
-    //     input: parseFloat(value.prevNumber) * parseFloat(value.input),
-    //     prevNumber: value.input,
-    //     prevOperator: value.operator,
-    //   });
-    // } else if (value.operator === "/") {
-    //   setValue({
-    //     ...value,
-    //     input: parseFloat(value.prevNumber) / parseFloat(value.input),
-    //     prevNumber: value.input,
-    //     prevOperator: value.operator,
-    //   });
-    // }
   };
 
   const getOperators = (e) => {
