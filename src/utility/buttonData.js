@@ -16,7 +16,7 @@ export const buttons = {
 
   decimal: ".",
   zero: "0",
-  multiply: "x",
+  multiply: "*",
   divide: "/",
 };
 
