@@ -15,6 +15,7 @@
     --hoverBackgroundColor:hsl(221, 14%, 31%);
     --hoverTextColor:white;
     --hoverOperatorShadow:hsl(217, 15%, 49%);
+    --equalsFontColor:white;
 }
 
 
@@ -35,6 +36,7 @@ html[data-theme="white"]{
     --hoverBackgroundColor:hsl(0, 5%, 81%);
     --hoverTextColor:hsl(60, 10%, 19%);
     --hoverOperatorShadow:hsl(0, 8%, 70%);
+     --equalsFontColor:white;
     
 }
 
@@ -55,6 +57,7 @@ html[data-theme="purple"]{
      --hoverBackgroundColor:hsl(52, 100%, 62%);
     --hoverTextColor:hsl(268, 38%, 40%);
     --hoverOperatorShadow:hsl(268, 100%, 57%);
+     --equalsFontColor:hsl(268, 71%, 12%);
 }
 
 
