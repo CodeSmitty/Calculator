@@ -73,7 +73,7 @@ let resAndEqal = Object.entries(resetAndEqual).map(([key,val], i) => {
       <div className="calculator-wrapper">
         <ThemeSwitch themes={theme} handleTheme={handleTheme} />
         <div id="display" className="rounded">
-          <p className="display-text">{result?.input ? result?.input : "0"}</p>
+          <h3 className="display-text">{result?.input ? result?.input : "0"}</h3>
         </div>
         <div class="btns-container">
           <div className="btn-wrapper rounded">

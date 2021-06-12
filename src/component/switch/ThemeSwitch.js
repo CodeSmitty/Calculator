@@ -13,7 +13,7 @@ const ThemeSwitch = ({handleTheme, themes}) =>{
         </span>
         <div className="theme-header-container">
           <div className="calc-title">
-            <p>calc</p>
+            <h2>calc</h2>
           </div>
           <div class="switch-wrapper">
             <div className='theme-title-container'>
