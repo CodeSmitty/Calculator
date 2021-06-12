@@ -71,18 +71,22 @@ let resAndEqal = Object.entries(resetAndEqual).map(([key,val], i) => {
 
     return (
       <div className="calculator-wrapper">
-        <ThemeSwitch themes={theme} handleTheme={handleTheme} />
-        <div id="display" className="rounded">
-          <h3 className="display-text">{result?.input ? result?.input : "0"}</h3>
-        </div>
-        <div class="btns-container">
-          <div className="btn-wrapper rounded">
-            <div className="btn-container">
-              <span className="number-btns">{button}</span>
-              <span className="res-and-equal-btns">{resAndEqal}</span>
-            </div>
+        <main>
+          <ThemeSwitch themes={theme} handleTheme={handleTheme} />
+          <div id="display" className="rounded">
+            <h3 className="display-text">{result?.input ? result?.input : "0"}</h3>
           </div>
-        </div>
+          <section>
+            <div class="btns-container">
+              <div className="btn-wrapper rounded">
+                <div className="btn-container">
+                  <span className="number-btns">{button}</span>
+                  <span className="res-and-equal-btns">{resAndEqal}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
       </div>
     );
 };
