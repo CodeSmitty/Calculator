@@ -59,9 +59,7 @@ const useCalculatorMath = () => {
   const addDecimal = val =>{
       const inputValue = String(value.input)
       if(!isNaN(inputValue[inputValue.length -1]) ){
-          console.log(inputValue.length -1)
           if (val === "." && /\d{1,}\.\d$/.test(inputValue)) {
-        console.log("regex test pass");
         setValue({ input: value.input + "" });
       }else{
           setValue({input:value.input + val})
@@ -74,13 +72,12 @@ const useCalculatorMath = () => {
       const reg = new RegExp(/[0-9][+\-/*]+[0-9]/g);
       const moreThanOneOperator = /\d{1,}[+*/]{1,}/
       const inputValue = value.input;
-      console.log(moreThanOneOperator.test(value.input))
-      if (
+    //   if (
        
-        moreThanOneOperator.test(inputValue)
-      ){
-          console.log('there are multiple operators')
-      }
+    //     moreThanOneOperator.test(inputValue)
+    //   ){
+    //       console.log('there are multiple operators')
+    //   }
 
       if(/\d{1,}\+$/.test(inputValue)){
         setValue({input:value.input + ""})
@@ -96,16 +93,9 @@ const useCalculatorMath = () => {
     
   };
   const substract = (val) => {
-    const reg = new RegExp(/[0-9][+\-/*]+[0-9]/g);
-    const doesOperatorExist = new RegExp(/([*/+-])+/g);
-    const lastChar = new RegExp(/[-]$/)
-
-    // setValue({
-    //   ...value,
-    //   input: value.input + val,
-    //   prevNumber: value.input,
-    //   operator: val,
-    // });
+    const reg = new RegExp(/\d{1,}[+\-/*]+\d{1,}/g);
+    const regminus = new RegExp(/[-]\d{1,}[+\-/*]+\d{1,}/g)
+  
     
    if (!value.input.match(reg)) {
       
@@ -121,54 +111,82 @@ const useCalculatorMath = () => {
   };
 
   const multiply = (val) => {
-      const inputValue = value.input;
-      const reg = /\d{1,}[+*/]{1,}/
-      if(reg.test(inputValue)){
-          console.log(value.operator)
-          const newValue = inputValue.slice(0,inputValue.length-1)
-          console.log(newValue)
-        setValue({input:newValue +val,operator:val})
-      }
-    // setValue({
-    //   ...value,
-    //   input: (value.input += val),
-    //   prevNumber: value.input,
-    //   operator: val,
-    // });
+  
+     setValue({
+      ...value,
+      input: (value.input + val),
+      prevNumber: value.input,
+      operator: val,
+    });
   };
 
-  const divide = (val) =>
+  const divide = (val) =>{
+  
     setValue({
       ...value,
       input: (value.input += val),
       prevNumber: value.input,
       operator: val,
     });
+  }
 
-  const handleOperator = (val) => {
-    const reg = /[+\-/*]/;
-    var moreThanOneOperators = new RegExp("[^0-9]{2}$");
-    if (value.input.indexOf(moreThanOneOperators)) {
-      setValue({
-        input: value.input,
-      });
-    } else if (reg.test(val)) {
-      setValue({
-        input: value.input + val,
-      });
-    }
-  };
+//   const handleOperator = (val) => {
+//     const reg = /[+\-/*]/;
+//     var moreThanOneOperators = new RegExp("[^0-9]{2}$");
+//     if (value.input.indexOf(moreThanOneOperators)) {
+//       setValue({
+//         input: value.input,
+//       });
+//     } else if (reg.test(val)) {
+//       setValue({
+//         input: value.input + val,
+//       });
+//     }
+//   };
 
-  console.log(value);
+
   const handleEvaluate = (val) => {
-    let answer = evaluate(value.input);
-    console.log(answer);
+    const inputValue = value.input;
+    const length = inputValue.length;
+    const findOperands = inputValue.slice(1, length -2).split("")
+    console.log(inputValue)
+   if (inputValue.match(/\d{1,}[+,/,*,-]{1,}\d{1,}/)) {
+     if (
+       findOperands.length >= 2 &&
+       inputValue[length - 2] !== "-" &&
+       findOperands.every((x) => ["/", "-", "+", "*"].includes(x))
+     ) {
+       const newEquation = [
+         inputValue.slice(0, 1),
+         inputValue.slice(length - 2, length),
+       ].flat();
+       console.log(newEquation);
+       const evalEquation = evaluate(newEquation.join(""));
 
-    setValue({
-      input: answer,
-    });
+       setValue({ input: evalEquation });
+     } else if (inputValue === "") {
+       setValue({ input: "" });
+     } else {
+       let answer = evaluate(value.input);
 
-  };
+       setValue({
+         input: answer,
+       });
+     }
+   }else{
+     setValue({input:""})
+   }
+    // const reg = /\d{1,}[+*/-]{1,}\d{1,}/;
+    //   if(reg.test(inputValue)){
+    //       const newValue= String(inputValue).split("").slice(0,-2).join('') 
+    //     console.log(newValue)
+          
+    //   }else{
+
+    //   }
+
+    
+  };;
 
   const getOperators = (e) => {
     let val = e.target.textContent;
@@ -189,7 +207,7 @@ const useCalculatorMath = () => {
         return divide(val);
       case "=":
         return handleEvaluate(val);
-      case "reset":
+      case "RESET":
         return clearInputs();
 
       // case "del":

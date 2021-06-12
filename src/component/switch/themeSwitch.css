@@ -1,0 +1,145 @@
+:root{
+   --toggleBackground: hsl(223, 31%, 20%);
+   --toggleTextColor:white;
+   --toggleButtonColor:hsl(6, 63%, 50%);
+   --calcTitleFontSize:32px;
+   --themeTitleFontSize:24px;
+   --calcFontWeight:700;
+}
+
+html[data-theme="white"]{
+    --toggleBackground: hsl(0, 5%, 81%);
+   --toggleTextColor:hsl(60, 10%, 19%);
+   --toggleButtonColor:hsl(25, 98%, 40%);
+   --calcTitleFontSize:32px;
+   --themeTitleFontSize:24px;
+   --calcFontWeight:700;
+}
+
+html[data-theme="purple"]{
+    --toggleBackground: hsl(268, 71%, 12%);
+   --toggleTextColor:hsl(52, 100%, 62%);
+   --toggleButtonColor: hsl(176, 100%, 44%);
+   --calcTitleFontSize:32px;
+   --themeTitleFontSize:24px;
+   --calcFontWeight:700;
+}
+
+.theme-switch-container{
+    margin:auto;
+    color:var(--toggleTextColor);
+    height:70px;
+    position: relative;
+}
+
+.switch-numbers-container{
+    width:85%;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content:flex-end;
+    height:25px;
+     position: absolute;
+    bottom:50px;
+}
+
+
+
+.theme-header-container{
+    position:relative;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content:space-between;
+    width:70%;
+    margin:auto;
+    
+}
+
+.switch-numbers{
+    padding:0 5px;
+    font-weight:500;
+}
+
+
+.calc-title{
+    font-size:var(--calcTitleFontSize);
+    font-weight:var(--calcFontWeight);
+   
+}
+
+
+
+
+.switch-wrapper{
+    position:absolute;
+    bottom:0;
+    right:0;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content:space-between;
+    flex:0 0 40%;
+}
+
+.theme-title-container{
+    margin-top:19px;
+    flex:0 0 40%;
+    padding:0 15px;
+}
+
+.theme-title{
+   font-weight:500;
+}
+
+.switch-container{
+    
+    background-color:hsl(224, 36%, 15%);
+    display:flex;
+    flex-flow:row nowrap;
+    width:45%;
+    border-radius:20px;
+    justify-content:center;
+    margin-top:20px;
+    height:20px;
+    
+}
+
+
+
+.blue-switch, .white-switch, .purple-switch{
+    background-color:var(--toggleButtonColor);
+    border-radius:50%;
+    margin:2px;
+    width:15px;
+    height:15px; 
+    flex:0 0 auto;   
+}
+
+.inactiveButton:hover{
+    cursor: pointer;
+}
+
+.inactiveButton{
+    background-color:transparent;
+}
+
+@media screen and (max-width:796px) {
+  
+    .switch-numbers-container{
+        width:98%;
+    }
+
+   .theme-header-container{
+       width:95%;
+   }
+}
+
+
+@media screen and (max-width:1024px) {
+  
+    .switch-numbers-container{
+        width:99%;
+    }
+
+   .theme-header-container{
+       width:99%;
+   }
+}

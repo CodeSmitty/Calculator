@@ -21,6 +21,6 @@ export const buttons = {
 };
 
 export const resetAndEqual = {
-  clear: "reset",
+  clear: "RESET",
   equals: "=",
 };

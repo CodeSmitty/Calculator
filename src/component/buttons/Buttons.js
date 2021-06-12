@@ -1,42 +1,88 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import{buttons, resetAndEqual} from "../../utility/buttonData"
 import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./buttons.styles.css"
 import useCalculatorMath from "../../utility/handleMath"
-
+import ThemeSwitch from '../switch/ThemeSwitch'
 
 const Buttons = () =>{
     const [result, setResult] = useCalculatorMath("")
+    const [theme, setTheme] = useState('blue')
+
+    // const numbersFontSize =(num) =>{
+
+    //   if(!isNaN(num)){
+    //     return{
+    //       fontSize:'32px',
+    //       fontWeight:"700"
+    //     }
+    //   }
+    // } 
 
     const handleClick = (e) =>{
       
         setResult(e) 
     }
 
+    const handleTheme  = (e,val) =>{
+      e.preventDefault();
+      if(val){
+          setTheme(String(val))
+        let changeTheme = document.getElementsByTagName('html')[0]
+      
+        changeTheme.dataset.theme = val
+      }
+      
+      
+    }
+
+
+
+
 
 let button = Object.entries(buttons).map(([key,btn],i) =>{
 
-    return <button id={key} value={btn}  onClick={(e)=>handleClick(e)} key={i} className="boot-btn m-5">{btn}</button>
+    return (
+      <Button
+        variant="light"
+        size="sm"
+        id={key}
+        
+        value={btn}
+        onClick={(e) => handleClick(e)}
+        key={i}
+        className="numbers-operators rounded m-2"
+      >
+        {btn}
+      </Button>
+    );
 })
+
 
 let resAndEqal = Object.entries(resetAndEqual).map(([key,val], i) => {
   
   return (
-    <button id={key} value={val} onClick={(e) => handleClick(e)} key={i} className="boot-btn m-5">
+    <Button id={key} variant="light" size="sm" value={val}  onClick={(e) => handleClick(e)} key={i} className={`${key} m-2  reset-and-equal`}>
       {val}
-    </button>
+    </Button>
   );
 });
 
     return (
-      <div>
-        <div id="display">
-          {/* <p>{result?.result }</p> */}
-          <hr/>
-        <p>{result?.input ? result?.input : "0"}</p>
+      <div className="calculator-wrapper">
+        <ThemeSwitch themes={theme} handleTheme={handleTheme} />
+        <div id="display" className="rounded">
+          <p className="display-text">{result?.input ? result?.input : "0"}</p>
         </div>
-        <div className="btn-wrapper p-5 m-5">{button}</div>
-        <div>{resAndEqal}</div>
+        <div class="btns-container">
+          <div className="btn-wrapper rounded">
+            <div className="btn-container">
+              <span className="number-btns">{button}</span>
+              <span className="res-and-equal-btns">{resAndEqal}</span>
+            </div>
+          </div>
+        </div>
       </div>
     );
 };
