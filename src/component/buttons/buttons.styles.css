@@ -80,6 +80,7 @@ html{
     width:70%;
     margin:auto;
     padding:20px;
+    border-radius: 5px;
 }
 
 .btn-wrapper{
